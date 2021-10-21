@@ -1,0 +1,21 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Pikachu",
+            "strength": 20,
+            "defense": 12,
+            "weaknesses": [
+                "water"
+            ],
+            "abilities": [
+                {
+                    "name": "Lightning Rod",
+                    "element": "static",
+                    "power": 18
+                }
+            ],
+            "img": null
+        }
+    ]
+}

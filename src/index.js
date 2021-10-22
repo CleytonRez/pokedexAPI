@@ -1,39 +1,63 @@
+import express from "express";
 import { readPokemons } from "./services/jsonService";
 import { createPokemon } from "./services/jsonService";
 import { updatePokemon } from "./services/jsonService";
 import { deletePokemon } from "./services/jsonService";
 
-const execute = async () => {
-    const pokemonList = await readPokemons();
-    console.log(pokemonList)
+// Inicializa express.
+const app = express();
+app.use(express.json());
 
-    const returnCreate = await createPokemon({
-        "name": "Evee",
-        "strength": 15,
-        "defense": 10,
-        "weaknesses": [
-            "earth"
-        ],
-        "abilities": [
-            {
-                "name": "Attack",
-                "element": "earth",
-                "power": 18
-            }
-        ],
-        "img": null
-    })
-    console.log(returnCreate);
+app.get('/pokemon', async (request, response) => {
+    const data = {
+        response: await readPokemons()
+    }
+    response.json(data)
+});
 
-    const returnUpdate = await updatePokemon({
-        id: 1,
-        "strength": 21,
-    });
-    console.log(returnUpdate);
+app.post('/pokemon', async (request, response) => {
+    // Obter dados do body.
+    const body = request.body;
+    console.log(body)
+    // chamar funcao de criancao
+    const idCreatePokemon = await createPokemon(body);
 
-    const returnDelete = await deletePokemon(1);
-    console.log(returnDelete);
+    response.status(201).json(
+        {
+            response: idCreatePokemon
+        }
+    )
 
-}
+    // retornar 201
+});
 
-execute();
+app.put('/pokemon/:id', async (request, response) => {
+    // Obter dados do body.
+    const body = request.body;
+    const id = request.params.id;
+    body.id = Number(id)
+    console.log(body)
+    // chamar funcao de Update
+    const idUpdatePokemon = await updatePokemon(body);
+
+    response.status(201).json(
+        {
+            response: idUpdatePokemon
+        }
+    )
+});
+
+app.delete('/pokemon/:id', async (request, response) => {
+    const id = Number(request.params.id);
+    console.log(id)
+
+    const idDeletePokemon = await deletePokemon(id);
+
+    response.status(201).json(
+        {
+            response: idDeletePokemon
+        }
+    )
+});
+
+app.listen(3000);

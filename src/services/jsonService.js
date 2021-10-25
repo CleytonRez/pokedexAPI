@@ -49,6 +49,7 @@ export const createPokemon = async (pokemonCreate) => {
 
 
         _setStringilyFile(data)
+
     } catch (e) {
         console.log(e)
 

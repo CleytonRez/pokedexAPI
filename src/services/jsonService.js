@@ -1,20 +1,25 @@
+// Importa os pacotes usados.
 import fs from "fs";
 import util from "util";
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 const path = "./src/models/pokemon.json"
 
+// Funcao que Carrega e faz o Parse (Transforma o OBJ - JSON em JS)
 const _getParseFile = async () => {
     // Carregar o documento pokemon.json.
     const file = await readFile(path, "utf8")
 
-    // Fazer um parse para objeto.
+    // Fazer um Parse (Transforma o OBJ - JSON em JS) para objeto.
     const parsedJSON = JSON.parse(file)
 
+    // Retorna o ParsedJON
     return parsedJSON;
 }
 
+// Funcao que converte o OBJ em STRING e subscreve o arquivo.
 const _setStringilyFile = async (data) => {
+
     // Fazer o .Stringify do objeto.
     const stringfiedJSON = JSON.stringify(data);
     console.log(stringfiedJSON);
@@ -23,6 +28,7 @@ const _setStringilyFile = async (data) => {
     await writeFile(path, stringfiedJSON)
 }
 
+// Funcao que Le a lista de Pokemons.
 export const readPokemons = async () => {
     try {
         // Carregar o documento pokemon.json.
@@ -36,24 +42,34 @@ export const readPokemons = async () => {
     }
 }
 
+// Funcao que Cria Pokemons - Passa novas informacoes para serem salvas. 
 export const createPokemon = async (pokemonCreate) => {
 
     // Carregar o documento pokemon.json.
     try {
         // Carregar o documento pokemon.json.
-        const data = await _getParseFile();
+        const dataJSON = await _getParseFile();
+
+        // Converte a STRING no formato de data para tipo Date.
+        const newDate = new Date(pokemonCreate.birthDate);
 
         // Adicionar pokemon na lista.
         pokemonCreate.id = Math.random()
-        data.data.push(pokemonCreate)
 
+        // Adiciona o newDate no pokemonCreate.birthDate.
+        pokemonCreate.birthDate = newDate
 
-        _setStringilyFile(data)
+        // Adicionou as informaçoes no JSON
+        dataJSON.data.push(pokemonCreate)
+
+        _setStringilyFile(dataJSON)
 
     } catch (e) {
         console.log(e)
 
     }
+
+    // Retorna o ID do pokemon.
     return pokemonCreate.id;
 
 }
@@ -92,6 +108,7 @@ export const updatePokemon = async (pokemonUpdate) => {
 
 }
 
+// Funcao que Deleta um Pokemon e suas INF pelo ID.
 export const deletePokemon = async (id) => {
 
     // Carregar o documento pokemon.json.
@@ -113,6 +130,7 @@ export const deletePokemon = async (id) => {
         data: newPokemonList
     })
 
+    // Retorna o ID.
     return id;
 
 };

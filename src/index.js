@@ -7,6 +7,8 @@ import { deletePokemon } from "./services/jsonService";
 import { validateId } from "./validate/validateRequest";
 import { validateBody } from "./validate/validateRequest";
 
+
+
 // Inicializa express.
 const app = express();
 app.use(express.json());

@@ -1,5 +1,6 @@
 export const validateId = (id) => {
-    if (!isNaN(id) && id.length > 0) {
+    console.log("ID.LENGTH: ", id)
+    if (!isNaN(id)) {
         return true
 
     } else { false };

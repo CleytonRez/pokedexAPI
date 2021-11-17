@@ -80,6 +80,7 @@ export const createPokemon = async (pokemonCreate) => {
  */
 export const updatePokemon = async (pokemonUpdate) => {
 
+    console.log("POKEMON UPDATE: ", pokemonUpdate)
     // Carregar o documento pokemon.json.
     try {
         // Carregar o documento pokemon.json.
@@ -87,7 +88,6 @@ export const updatePokemon = async (pokemonUpdate) => {
 
         // buscar o pokemon pelo ID .map quando achar, retorna aquele pokemon com os valores substituidos.
         const newPokemonList = data.data.map((pokemon) => {
-            //console.log(obj)
 
             if (pokemon.id === pokemonUpdate.id) {
 
@@ -103,34 +103,37 @@ export const updatePokemon = async (pokemonUpdate) => {
 
         return pokemonUpdate.id;
     } catch (e) {
-        console.log(e)
+        console.log(e.message)
     }
 
 }
 
 // Funcao que Deleta um Pokemon e suas INF pelo ID.
 export const deletePokemon = async (id) => {
+    try {
+        // Carregar o documento pokemon.json.
+        const data = await _getParseFile();
 
-    // Carregar o documento pokemon.json.
-    const data = await _getParseFile();
+        // Cria uma newList vazia.
+        const newPokemonList = []
 
-    // Cria uma newList vazia.
-    const newPokemonList = []
+        // buscar o pokemon pelo ID .forEach quando achar, cria um if e se for diferente ele adiciona na lista .
+        data.data.forEach((pokemon) => {
 
-    // buscar o pokemon pelo ID .forEach quando achar, cria um if e se for diferente ele adiciona na lista .
-    data.data.forEach((pokemon) => {
+            if (pokemon.id !== id) {
+                newPokemonList.push(pokemon)
+            }
+        });
 
-        if (pokemon.id !== id) {
-            newPokemonList.push(pokemon)
-        }
-    });
+        // Fazer o .Stringfy do objeto.
+        _setStringilyFile({
+            data: newPokemonList
+        })
 
-    // Fazer o .Stringfy do objeto.
-    _setStringilyFile({
-        data: newPokemonList
-    })
+        // Retorna o ID.
+        return id;
 
-    // Retorna o ID.
-    return id;
-
+    } catch (e) {
+        console.log(e.message)
+    }
 };

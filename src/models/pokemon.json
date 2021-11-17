@@ -1,1 +1,21 @@
-{"data":[{"id":1,"name":"Pikachu","strength":20,"defense":12,"weaknesses":["water"],"abilities":[{"name":"Lightning Rod","element":"static","power":18}],"img":null},{"birthDate":"2021-10-25T21:54:16.956Z","name":"Evee","strength":15,"defense":10,"weaknesses":["earth"],"abilities":[{"name":"Attack","element":"fisic","power":18}],"img":null,"id":0.3854292706137341}]}
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Pikachu",
+            "strength": 20,
+            "defense": 12,
+            "weaknesses": [
+                "water"
+            ],
+            "abilities": [
+                {
+                    "name": "Lightning Rod",
+                    "element": "static",
+                    "power": 18
+                }
+            ],
+            "img": null
+        }
+    ]
+}

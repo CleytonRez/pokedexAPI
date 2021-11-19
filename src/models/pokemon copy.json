@@ -5,7 +5,7 @@
             "name": "Pikachu",
             "strength": 20,
             "defense": 12,
-            "weaknesses": [
+            "weaknessess": [
                 "water"
             ],
             "abilities": [

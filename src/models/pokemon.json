@@ -5,13 +5,13 @@
             "name": "Pikachu",
             "strength": 20,
             "defense": 12,
-            "weaknesses": [
-                "water"
+            "weaknessess": [
+                "Water"
             ],
             "abilities": [
                 {
                     "name": "Lightning Rod",
-                    "element": "static",
+                    "element": "Static",
                     "power": 18
                 }
             ],
